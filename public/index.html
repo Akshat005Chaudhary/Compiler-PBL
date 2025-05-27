@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expression Evaluator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Expression Evaluator</h1>
+        <div class="menu">
+            <button onclick="showSection('expression')">Enter Expression</button>
+            <button onclick="showSection('symbol-table')">Show Symbol Table</button>
+            <button onclick="visualizeParseTree()">Show Parse Tree</button>
+        </div>
+
+        <div id="expression" class="section">
+            <h2>Enter Expression</h2>
+            <textarea id="exprInput" placeholder="e.g., int x = 5;&#10;x = x + 3;" rows="5" style="width: 100%;"></textarea>
+            <button onclick="evaluateExpression()">Evaluate</button>
+            <p id="exprResult"></p>
+        </div>
+
+        <div id="symbol-table" class="section" style="display: none;">
+            <h2>Symbol Table</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Value</th>
+                        <th>Scope</th>
+                    </tr>
+                </thead>
+                <tbody id="symbolTableBody"></tbody>
+            </table>
+            <button onclick="refreshSymbolTable()">Refresh</button>
+        </div>
+
+        <div id="visualize" class="section" style="display: none;">
+            <h2>Parse Tree</h2>
+            <img id="parseTreeImg" src="" alt="Parse Tree" style="max-width: 100%;">
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "compiler-pbl-project",
+  "version": "1.0.0",
+  "description": "Compiler Mini Project with Node.js + Express",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.2"
+  }
+}
