@@ -12,38 +12,39 @@ The project supports expression evaluation, variable scoping, error logging, and
 ## ✨ Features
 
 - **Expression Evaluation**: Evaluates arithmetic expressions with operators `+`, `-`, `*`, `/`, `%`, and `^`.  
-  Example:  
+  Example:
   ```c++
   x = 5 + 3 * 2;  // assigns x = 11
+  ```
 ````
 
-* **Variable Declaration**: Supports `int` variable declarations.
+- **Variable Declaration**: Supports `int` variable declarations.
   Example:
 
   ```c++
   int a, b = 10;
   ```
 
-* **Variable Scoping**: Handles local and global scopes, supporting variable shadowing.
+- **Variable Scoping**: Handles local and global scopes, supporting variable shadowing.
 
-* **Error Logging**: Logs errors (e.g., undeclared variables) to `cpp/error_log.txt`.
+- **Error Logging**: Logs errors (e.g., undeclared variables) to `cpp/error_log.txt`.
 
-* **Parse Tree Visualization**: Generates and visualizes parse trees using **Graphviz**, displayed as PNG in the UI.
+- **Parse Tree Visualization**: Generates and visualizes parse trees using **Graphviz**, displayed as PNG in the UI.
 
-* **Symbol Table Display**: Shows variable names, types, values, and scopes in the UI.
+- **Symbol Table Display**: Shows variable names, types, values, and scopes in the UI.
 
-* **Frontend Validation**: Ensures user inputs are syntactically correct (e.g., expressions must end with `;`).
+- **Frontend Validation**: Ensures user inputs are syntactically correct (e.g., expressions must end with `;`).
 
-* **Automated Testing**: Validates functionality using `test.mjs`, covering evaluation, scoping, and error handling.
+- **Automated Testing**: Validates functionality using `test.mjs`, covering evaluation, scoping, and error handling.
 
 ---
 
 ## 🛠 Prerequisites
 
-* [Node.js](https://nodejs.org/) (v14 or higher)
-* C++ Compiler (`g++`)
-* [Graphviz](https://graphviz.org/download/) (ensure `dot` command is in PATH)
-* OS: Windows/Linux/macOS (tested on Windows)
+- [Node.js](https://nodejs.org/) (v14 or higher)
+- C++ Compiler (`g++`)
+- [Graphviz](https://graphviz.org/download/) (ensure `dot` command is in PATH)
+- OS: Windows/Linux/macOS (tested on Windows)
 
 ---
 
@@ -80,13 +81,19 @@ g++ cpp/p1.cpp -o cpp/p1
 
 ### 4. Install Graphviz
 
-* Download and install from: [https://graphviz.org/download/](https://graphviz.org/download/)
-* Ensure `dot` command is accessible from the terminal.
+- Download and install from: [https://graphviz.org/download/](https://graphviz.org/download/)
+- Ensure `dot` command is accessible from the terminal.
 
 ### 5. Start the Server
 
 ```bash
 node server.js
+```
+
+or
+
+```bash
+npm start
 ```
 
 > The server will run at [http://localhost:3000](http://localhost:3000)
@@ -97,15 +104,15 @@ node server.js
 
 ### Access the Web Interface
 
-* Open a browser and go to: [http://localhost:3000](http://localhost:3000)
+- Open a browser and go to: [http://localhost:3000](http://localhost:3000)
 
 ### Use the UI To:
 
-* Enter expressions (e.g., `x = 5 + 3;`)
-* Declare variables (e.g., `int x, y = 10;`)
-* Display the symbol table
-* Visualize parse trees
-* Enter/exit scopes to test variable scoping
+- Enter expressions (e.g., `x = 5 + 3;`)
+- Declare variables (e.g., `int x, y = 10;`)
+- Display the symbol table
+- Visualize parse trees
+- Enter/exit scopes to test variable scoping
 
 ### Run Automated Tests
 
@@ -146,12 +153,12 @@ compiler-pbl-project/
 
 ### Manual Testing
 
-* Covered in `test_cases.md`:
+- Covered in `test_cases.md`:
   Includes tests for declarations, evaluation, scoping, error logging, tree visualization, and UI validation.
 
 ### Automated Testing
 
-* `test.mjs` verifies critical functionality across all modules.
+- `test.mjs` verifies critical functionality across all modules.
 
 > ✅ All tests passed as of **May 19, 2025, 10:11 AM IST**.
 
@@ -159,22 +166,22 @@ compiler-pbl-project/
 
 ## 🧠 Key Challenges and Solutions
 
-* **C++-Node.js Communication**:
+- **C++-Node.js Communication**:
   Fixed output delays using `std::cout << std::unitbuf` in `p1.cpp` and added dynamic waiting in `server.js`.
 
-* **ESM Compatibility**:
+- **ESM Compatibility**:
   Migrated to ESM (`import`) syntax in `server.js` and `test.mjs`. Set `"type": "module"` in `package.json`.
 
-* **Exponentiation Bug**:
+- **Exponentiation Bug**:
   Replaced `std::pow` with custom `intPow` function to correctly handle integer powers (e.g., `2 ^ 3` → `8`).
 
 ---
 
 ## 🚀 Future Improvements
 
-* Add support for additional data types (e.g., `float`, `double`)
-* Implement a more robust communication protocol (e.g., end-of-command markers)
-* Deploy the application to a remote server for live access
+- Add support for additional data types (e.g., `float`, `double`)
+- Implement a more robust communication protocol (e.g., end-of-command markers)
+- Deploy the application to a remote server for live access
 
 ---
 
@@ -188,10 +195,7 @@ This project is developed solely for educational purposes as part of a PBL evalu
 
 For access to the repository or more information, contact:
 
-**Shaurya Pundir**
-📧 [anjanavikrampundir@gmail.com](mailto:anjanavikrampundir@gmail.com)
+**Akshat Chaudhary**
+📧 [chaudharyakshat555@gmail.com](mailto:chaudharyakshat555@gmail.com)
 
 ---
-
-
-

@@ -1,187 +1,9 @@
-// // const express = require('express');
-// // const { spawn } = require('child_process');
-// // const path = require('path');
-// // const app = express();
-// // const port = 3000;
-
-// // app.use(express.static('public'));
-// // app.use(express.json());
-
-// // const cppDir = path.join(__dirname, 'cpp');
-// // const cppExecutable = path.join(cppDir, process.platform === 'win32' ? 'p1.exe' : 'p1');
-
-// // // Spawn the C++ process once at server start
-// // const cppProcess = spawn(cppExecutable, { cwd: cppDir });
-// // let outputBuffer = '';
-
-// // // Handle stdout
-// // cppProcess.stdout.on('data', (data) => {
-// //     outputBuffer += data.toString();
-// // });
-
-// // cppProcess.stderr.on('data', (data) => {
-// //     console.error(`C++ Error: ${data}`);
-// // });
-
-// // cppProcess.on('close', (code) => {
-// //     console.log(`C++ process exited with code ${code}`);
-// // });
-
-// // app.post('/execute', (req, res) => {
-// //     const { choice, input } = req.body;
-// //     outputBuffer = ''; // Reset buffer for new command
-
-// //     // Send command to C++ process
-// //     cppProcess.stdin.write(`${choice}\n`);
-// //     if (input) {
-// //         cppProcess.stdin.write(`${input}\n`);
-// //     }
-
-// //     // Wait briefly for output (adjust delay as needed)
-// //     setTimeout(() => {
-// //         if (outputBuffer) {
-// //             res.json({ output: outputBuffer });
-// //         } else {
-// //             res.status(500).json({ error: 'No output received' });
-// //         }
-// //     }, 100); // 100ms delay to allow C++ to process
-// // });
-
-// // app.get('/visualize', (req, res) => {
-// //     const dotFile = path.join(cppDir, 'parse_tree.dot');
-// //     const pngFile = path.join(cppDir, 'parse_tree.png');
-// //     const dotProcess = spawn('dot', ['-Tpng', dotFile, '-o', pngFile], { cwd: cppDir });
-
-// //     dotProcess.on('close', (code) => {
-// //         if (code === 0) {
-// //             res.sendFile(pngFile);
-// //         } else {
-// //             res.status(500).json({ error: 'Failed to generate parse tree image' });
-// //         }
-// //     });
-// // });
-
-// // app.listen(port, () => {
-// //     console.log(`Server running at http://localhost:${port}`);
-// // });
-
-// // // Graceful shutdown
-// // process.on('SIGINT', () => {
-// //     cppProcess.stdin.write('5\n'); // Send exit command (assuming 5 exits the loop)
-// //     cppProcess.on('close', () => process.exit());
-// // });
-
-
-
-// // server.js
-// import express from 'express';
-// import { spawn } from 'child_process';
-// import { join } from 'path';
-// import { fileURLToPath } from 'url';
-// import { dirname } from 'path';
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-
-// const app = express();
-// const port = 3000;
-
-// app.use(express.static('public'));
-// app.use(express.json());
-
-// const cppDir = join(__dirname, 'cpp');
-// const cppExecutable = join(cppDir, process.platform === 'win32' ? 'p1.exe' : 'p1');
-
-// // Spawn the C++ process once at server start
-// const cppProcess = spawn(cppExecutable, { cwd: cppDir });
-// let outputBuffer = '';
-
-// // Handle stdout
-// cppProcess.stdout.on('data', (data) => {
-//     outputBuffer += data.toString();
-// });
-
-// cppProcess.stderr.on('data', (data) => {
-//     console.error(`C++ Error: ${data}`);
-// });
-
-// cppProcess.on('close', (code) => {
-//     console.log(`C++ process exited with code ${code}`);
-// });
-
-// // app.post('/execute', async (req, res) => {
-// //     const { choice, input } = req.body;
-// //     outputBuffer = ''; // Reset buffer for new command
-
-// //     // Send command to C++ process
-// //     cppProcess.stdin.write(`${choice}\n`);
-// //     if (input) {
-// //         cppProcess.stdin.write(`${input}\n`);
-// //     }
-
-// //     // Wait briefly for output (adjust delay as needed)
-// //     await new Promise(resolve => setTimeout(resolve, 100)); // 100ms delay to allow C++ to process
-// //     if (outputBuffer) {
-// //         res.json({ output: outputBuffer });
-// //     } else {
-// //         res.status(500).json({ error: 'No output received' });
-// //     }
-// // });
-
-// app.post('/execute', async (req, res) => {
-//     const { choice, input } = req.body;
-//     outputBuffer = ''; // Reset buffer for new command
-
-//     // Send command to C++ process
-//     cppProcess.stdin.write(`${choice}\n`);
-//     if (input) {
-//         cppProcess.stdin.write(`${input}\n`);
-//     }
-
-//     // Wait briefly for output (adjust delay as needed)
-//     await new Promise(resolve => setTimeout(resolve, 500)); // 100ms delay to allow C++ to process
-//     if (outputBuffer) {
-//         res.json({ output: outputBuffer });
-//     } else {
-//         res.status(500).json({ error: 'No output received' });
-//     }
-// });
-
-// app.get('/visualize', async (req, res) => {
-//     const dotFile = join(cppDir, 'parse_tree.dot');
-//     const pngFile = join(cppDir, 'parse_tree.png');
-//     const dotProcess = spawn('dot', ['-Tpng', dotFile, '-o', pngFile], { cwd: cppDir });
-
-//     dotProcess.on('close', (code) => {
-//         if (code === 0) {
-//             res.sendFile(pngFile);
-//         } else {
-//             res.status(500).json({ error: 'Failed to generate parse tree image' });
-//         }
-//     });
-// });
-
-// app.listen(port, () => {
-//     console.log(`Server running at http://localhost:${port}`);
-// });
-
-// // Graceful shutdown
-// process.on('SIGINT', () => {
-//     cppProcess.stdin.write('7\n'); // Updated to choice 7 (exit) based on new menu
-//     cppProcess.on('close', () => process.exit());
-// });
-
-
-
-
-
-
-import express from 'express';
-import { spawn } from 'child_process';
-import { join } from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import { existsSync } from 'fs';
+import express from "express";
+import { spawn } from "child_process";
+import { join } from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import { existsSync } from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -189,185 +11,197 @@ const __dirname = dirname(__filename);
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.static('public'));
+app.use(express.static("public"));
 app.use(express.json());
 
-const cppDir = join(__dirname, 'cpp');
-const cppExecutable = join(cppDir, process.platform === 'win32' ? 'p1.exe' : 'p1');
+const cppDir = join(__dirname, "cpp");
+const cppExecutable = join(
+  cppDir,
+  process.platform === "win32" ? "p1.exe" : "p1"
+);
 
 if (!existsSync(cppExecutable)) {
-    console.error(`Error: C++ executable not found at ${cppExecutable}`);
-    process.exit(1);
+  console.error(`Error: C++ executable not found at ${cppExecutable}`);
+  process.exit(1);
 }
 
 let cppProcess;
-try {
-    cppProcess = spawn(cppExecutable, { cwd: cppDir });
-} catch (error) {
-    console.error(`Error spawning C++ process: ${error.message}`);
-    process.exit(1);
-}
 
-let outputBuffer = '';
-let errorBuffer = '';
+function startCppProcess() {
+  console.log("Starting C++ process...");
+  cppProcess = spawn(cppExecutable, { cwd: cppDir });
 
-cppProcess.stdout.on('data', (data) => {
+  cppProcess.stdout.on("data", (data) => {
+    console.log(`C++ Output: ${data}`);
     outputBuffer += data.toString();
-});
+  });
 
-cppProcess.stderr.on('data', (data) => {
-    errorBuffer += data.toString();
+  cppProcess.stderr.on("data", (data) => {
     console.error(`C++ Error: ${data}`);
-});
+    errorBuffer += data.toString();
+  });
 
-cppProcess.on('error', (error) => {
+  cppProcess.on("error", (error) => {
     console.error(`C++ process error: ${error.message}`);
-});
+  });
 
-cppProcess.on('close', (code) => {
+  cppProcess.on("close", (code) => {
     console.log(`C++ process exited with code ${code}`);
     if (code !== 0) {
-        console.error(`C++ process exited abnormally. Error output: ${errorBuffer}`);
+      console.error(
+        `C++ process exited abnormally. Error output: ${errorBuffer}`
+      );
+      startCppProcess();
     }
+  });
+}
+
+let outputBuffer = "";
+let errorBuffer = "";
+
+startCppProcess();
+
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("Unhandled Rejection at:", promise, "reason:", reason);
 });
 
-app.post('/execute', async (req, res) => {
-    const { choice, input } = req.body;
+app.post("/execute", async (req, res) => {
+  const { choice, input } = req.body;
 
-    if (!choice) {
-        return res.status(400).json({ error: 'Choice is required.' });
-    }
-    if (choice === 1) {
-        if (!input) {
-            return res.status(400).json({ error: 'Input is required for this choice.' });
-        }
-    }
+  if (!choice) {
+    return res.status(400).json({ error: "Choice is required." });
+  }
+  if (choice === 1 && !input) {
+    return res
+      .status(400)
+      .json({ error: "Input is required for this choice." });
+  }
 
-    outputBuffer = '';
-    errorBuffer = '';
+  // Allow choice 7 for resetting the state
+  if (choice < 1 || choice > 7) {
+    return res
+      .status(400)
+      .json({ error: `Invalid choice: ${choice}. Must be between 1 and 7.` });
+  }
 
-    if (!cppProcess || !cppProcess.stdin.writable) {
-        return res.status(500).json({ error: 'C++ process is not running.' });
-    }
+  outputBuffer = "";
+  errorBuffer = "";
 
-    try {
-        cppProcess.stdin.write(`${choice}\n`);
-        if (input) {
-            cppProcess.stdin.write(`${input}\n`);
-            cppProcess.stdin.write('\n'); // Send an empty line to terminate multi-line input
-        }
-    } catch (error) {
-        return res.status(500).json({ error: `Failed to communicate with C++ process: ${error.message}` });
-    }
+  if (!cppProcess || cppProcess.exitCode !== null) {
+    console.log("C++ process is not running. Restarting...");
+    startCppProcess();
+  }
 
-    try {
-        await new Promise(resolve => setTimeout(resolve, 500));
-        if (errorBuffer) {
-            return res.status(500).json({ error: errorBuffer });
-        }
-        if (outputBuffer) {
-            return res.json({ output: outputBuffer });
-        }
-        return res.status(500).json({ error: 'No output received from C++ process.' });
-    } catch (error) {
-        return res.status(500).json({ error: `Error processing request: ${error.message}` });
+  await new Promise((resolve) => setTimeout(resolve, 100));
+
+  if (!cppProcess.stdin.writable) {
+    return res
+      .status(500)
+      .json({ error: "C++ process is not ready to accept input." });
+  }
+
+  try {
+    console.log(
+      `Sending to C++ process: choice=${choice}, input=${input || "none"}`
+    );
+    cppProcess.stdin.write(`${choice}\n`);
+    if (input) {
+      cppProcess.stdin.write(`${input}\n`);
+      cppProcess.stdin.write("\n");
     }
+  } catch (error) {
+    console.error(`Failed to write to C++ process: ${error.message}`);
+    return res.status(500).json({
+      error: `Failed to communicate with C++ process: ${error.message}`,
+    });
+  }
+
+  let attempts = 0;
+  const maxAttempts = 10;
+  while (attempts < maxAttempts) {
+    if (errorBuffer) {
+      return res.status(500).json({ error: errorBuffer });
+    }
+    if (outputBuffer) {
+      return res.json({ output: outputBuffer });
+    }
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    attempts++;
+  }
+
+  return res
+    .status(500)
+    .json({ error: "No output received from C++ process within timeout." });
 });
 
-// app.get('/visualize', async (req, res) => {
-//     const dotFile = join(cppDir, 'parse_tree.dot');
-//     const pngFile = join(cppDir, 'parse_tree.png');
+app.get("/visualize", async (req, res) => {
+  const dotFile = join(cppDir, "parse_tree.dot");
+  const pngFile = join(cppDir, "parse_tree.png");
 
-//     if (!existsSync(dotFile)) {
-//         return res.status(500).json({ error: 'Parse tree file (parse_tree.dot) not found.' });
-//     }
+  if (!existsSync(dotFile)) {
+    return res
+      .status(500)
+      .json({ error: "Parse tree file (parse_tree.dot) not found." });
+  }
 
-//     try {
-//         const dotProcess = spawn('dot', ['-Tpng', dotFile, '-o', pngFile], { cwd: cppDir });
+  try {
+    const dotProcess = spawn("dot", ["-Tpng", dotFile, "-o", pngFile], {
+      cwd: cppDir,
+    });
 
-//         dotProcess.on('error', (error) => {
-//             res.status(500).json({ error: `Failed to run dot command: ${error.message}` });
-//         });
+    let responded = false;
 
-//         dotProcess.on('close', (code) => {
-//             if (code === 0) {
-//                 if (existsSync(pngFile)) {
-//                     res.sendFile(pngFile);
-//                 } else {
-//                     res.status(500).json({ error: 'Parse tree image (parse_tree.png) not generated.' });
-//                 }
-//             } else {
-//                 res.status(500).json({ error: `dot command failed with code ${code}` });
-//             }
-//         });
-//     } catch (error) {
-//         res.status(500).json({ error: `Error generating parse tree: ${error.message}` });
-//     }
-// });  ------ commented for deployment
+    dotProcess.on("error", (error) => {
+      if (!responded) {
+        responded = true;
+        res
+          .status(500)
+          .json({ error: `Failed to run dot command: ${error.message}` });
+      }
+    });
 
-app.get('/visualize', async (req, res) => {
-    const dotFile = join(cppDir, 'parse_tree.dot');
-    const pngFile = join(cppDir, 'parse_tree.png');
+    dotProcess.on("close", (code) => {
+      if (responded) return;
+      responded = true;
 
-    if (!existsSync(dotFile)) {
-        return res.status(500).json({ error: 'Parse tree file (parse_tree.dot) not found.' });
-    }
-
-    try {
-        const dotProcess = spawn('dot', ['-Tpng', dotFile, '-o', pngFile], { cwd: cppDir });
-
-        let responded = false;  // flag to prevent duplicate sends
-
-        dotProcess.on('error', (error) => {
-            if (!responded) {
-                responded = true;
-                res.status(500).json({ error: `Failed to run dot command: ${error.message}` });
-            }
+      if (code === 0 && existsSync(pngFile)) {
+        res.sendFile(pngFile);
+      } else {
+        res.status(500).json({
+          error:
+            code !== 0
+              ? `dot command failed with code ${code}`
+              : "Parse tree image (parse_tree.png) not generated.",
         });
-
-        dotProcess.on('close', (code) => {
-            if (responded) return;
-            responded = true;
-
-            if (code === 0 && existsSync(pngFile)) {
-                res.sendFile(pngFile);
-            } else {
-                res.status(500).json({
-                    error: code !== 0
-                        ? `dot command failed with code ${code}`
-                        : 'Parse tree image (parse_tree.png) not generated.'
-                });
-            }
-        });
-    } catch (error) {
-        return res.status(500).json({ error: `Error generating parse tree: ${error.message}` });
-    }
+      }
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: `Error generating parse tree: ${error.message}` });
+  }
 });
-
-
-
-
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server running at http://localhost:${port}`);
 });
 
-process.on('SIGINT', () => {
-    console.log('Shutting down server...');
-    if (cppProcess && cppProcess.stdin.writable) {
-        try {
-            cppProcess.stdin.write('4\n');
-            cppProcess.stdin.end();
-        } catch (error) {
-            console.error(`Error during C++ process shutdown: ${error.message}`);
-        }
+process.on("SIGINT", () => {
+  console.log("Shutting down server...");
+  if (cppProcess && cppProcess.stdin.writable) {
+    try {
+      cppProcess.stdin.write("4\n");
+      cppProcess.stdin.end();
+    } catch (error) {
+      console.error(`Error during C++ process shutdown: ${error.message}`);
     }
-    cppProcess.on('close', () => {
-        console.log('C++ process closed. Exiting server.');
-        process.exit(0);
-    });
-    setTimeout(() => {
-        console.error('C++ process did not close in time. Forcing exit.');
-        process.exit(1);
-    }, 2000);
+  }
+  cppProcess.on("close", () => {
+    console.log("C++ process closed. Exiting server.");
+    process.exit(0);
+  });
+  setTimeout(() => {
+    console.error("C++ process did not close in time. Forcing exit.");
+    process.exit(1);
+  }, 2000);
 });

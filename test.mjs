@@ -1,23 +1,57 @@
 // test.mjs
-import fetch from 'node-fetch';
+
+async function checkServer() {
+  try {
+    const response = await fetch("http://localhost:3000/");
+    if (!response.ok) {
+      throw new Error(`Server not responding: ${response.status}`);
+    }
+    console.log("Server is running.");
+  } catch (err) {
+    console.error("Server check failed:", err.message);
+    process.exit(1);
+  }
+}
+
+async function execute(choice, input = null) {
+  try {
+    const response = await fetch("http://localhost:3000/execute", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ choice, input }),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    if (data.error) {
+      throw new Error(`Server error: ${data.error}`);
+    }
+    return data;
+  } catch (err) {
+    console.error(`Error in execute (choice: ${choice}):`, err.message);
+    throw err;
+  }
+}
+
+async function resetState() {
+  try {
+    const data = await execute(7);
+    console.log("State reset:", data.output);
+  } catch (err) {
+    console.error("Failed to reset state:", err.message);
+    process.exit(1);
+  }
+}
 
 async function runTests() {
-    console.log("Running Automated Test Cases...\n");
+  await checkServer();
+  console.log("Running Automated Test Cases...\n");
 
-    // Helper function to make requests
-    async function execute(choice, input = null) {
-        const response = await fetch('http://localhost:3000/execute', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ choice, input })
-        });
-        const data = await response.json();
-        if (data.error) {
-            throw new Error(`Server error: ${data.error}`);
-        }
-        return data;
-    }
+  // Reset the state before running tests
+  await resetState();
 
+  try {
     // Test 1: Variable Declaration
     console.log("Test 1: Variable Declaration");
     let data = await execute(2, "int a, b = 10;");
@@ -41,24 +75,26 @@ async function runTests() {
 
     // Test 4: Scope Handling
     console.log("Test 4: Scope Handling");
-    data = await execute(2, "int x = 5;"); // Declare x in global scope
+    data = await execute(2, "int x = 5;");
     console.log("Declared x in global scope:", data.output);
 
-    data = await execute(5); // Enter new scope
+    data = await execute(5);
     console.log("Entered new scope:", data.output);
 
-    data = await execute(2, "int x = 20;"); // Declare x in new scope
+    data = await execute(2, "int x = 20;");
     console.log("Declared x in new scope:", data.output);
 
-    data = await execute(3); // Display symbol table
+    data = await execute(3);
     let inScope = data.output.includes("x\tint\t20\tScope1");
     console.log("Symbol table in scope:", data.output);
 
-    data = await execute(6); // Exit scope
+    data = await execute(6);
     console.log("Exited scope:", data.output);
 
-    data = await execute(3); // Display symbol table again
-    let outScope = data.output.includes("x\tint\t5\tGlobal") && !data.output.includes("Scope1");
+    data = await execute(3);
+    let outScope =
+      data.output.includes("x\tint\t5\tGlobal") &&
+      !data.output.includes("Scope1");
     console.log("Symbol table after exiting scope:", data.output);
 
     passed = inScope && outScope;
@@ -69,9 +105,14 @@ async function runTests() {
     // Test 5: Error Handling
     console.log("Test 5: Error Handling (Undeclared Variable)");
     data = await execute(1, "w = 5 + 3;");
-    passed = data.output.includes("Variable 'w' not declared in current scope.");
+    passed = data.output.includes(
+      "Variable 'w' not declared in current scope."
+    );
     console.log(`Result: ${passed ? "Pass" : "Fail"}`);
     console.log(`Output: ${data.output}\n`);
+  } catch (err) {
+    console.error("Test Error:", err.message);
+  }
 }
 
-runTests().catch(err => console.error("Test Error:", err));
+runTests();
